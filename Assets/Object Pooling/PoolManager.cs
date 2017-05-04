@@ -36,6 +36,7 @@ public class PoolManager : MonoBehaviour
                 var newObject = new ObjectInstance(Instantiate(prefab));
                 poolDictionary[poolKey].Enqueue(newObject);
                 newObject.SetParent(poolHolder.transform);
+                newObject.SetName(prefab.name);
             }
         }
     }
@@ -87,6 +88,11 @@ public class PoolManager : MonoBehaviour
         public void SetParent(Transform parent)
         {
             transform.parent = parent;
+        }
+
+        public void SetName(string name)
+        {
+            transform.name = name;
         }
     }
 }
