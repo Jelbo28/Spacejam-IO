@@ -11,12 +11,8 @@ public class TestManager : MonoBehaviour
         PoolManager.instance.CreatePool(prefab, 10);
     }
 
-    private void Update()
+    public void Shoot()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            PoolManager.instance.ReuseObject(prefab, spawn.transform.position, spawn.transform.rotation);
-            //laser.Play();
-        }
+        PoolManager.instance.ReuseObject(prefab, spawn.transform.position, spawn.transform.rotation);
     }
 }

@@ -9,9 +9,11 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody playerRigidbody;
     int floorMask;
     float camRayLength = 100f;
+    private TestManager projectileManager;
 
     void Awake()
     {
+        projectileManager = GetComponent<TestManager>();
         floorMask = LayerMask.GetMask("Floor");
         //anim = GetComponent<Animator>();
         playerRigidbody = GetComponent<Rigidbody>();
@@ -24,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
 
         Move(h, v);
         Turning();
+        Attack();
         //Animating(h, v);
     }
 
@@ -49,6 +52,14 @@ public class PlayerMovement : MonoBehaviour
 
             Quaternion newRotation = Quaternion.LookRotation(playerToMouse);
             playerRigidbody.MoveRotation(newRotation);
+        }
+    }
+
+    void Attack()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            projectileManager.Shoot();
         }
     }
 
