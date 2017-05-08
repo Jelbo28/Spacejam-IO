@@ -5,9 +5,23 @@ using UnityEngine;
 
 public class SetupLocalPlayer : NetworkBehaviour
 {
+    NHNetworkedPool bulletsPool;
+
+
+    public float fireRate = 0.1f;
+    float lastShotTime;
+
+    bool isFiring = false;
+
     [SyncVar] public string playerName = "player";
     private CameraFollow camera;
-	// Use this for initialization
+
+    [SerializeField]
+    private Transform[] spawns;
+    private int spawnNum = 0;
+    private Animator anim;
+
+
     void OnGUI()
     {
         if (isLocalPlayer)
@@ -27,19 +41,80 @@ public class SetupLocalPlayer : NetworkBehaviour
         playerName = newName;
     }
 
+    [Command]
+    public void CmdShoot(GameObject projectile)
+    {
+        if (isLocalPlayer)
+            NetworkServer.Spawn(projectile);
+    }
+
 	void Start () {
 	    if (isLocalPlayer)
 	    {
             camera = FindObjectOfType<CameraFollow>();
             camera.SetTarget(transform);
             GetComponent<PlayerMovement>().enabled = true;
-	        GetComponent<TestManager>().enabled = true;
-	    }
+            anim = transform.GetChild(2).GetComponent<Animator>();
+            anim.speed = 0;
+        }
+        if (NetworkServer.active)
+            bulletsPool = FindObjectOfType<NHNetworkedPool>();
     }
 
     void Update()
     {
-            GetComponentInChildren<TextMesh>().text = playerName;
+
+        if (isServer)
+        {
+            UpdateFire();
+        }
+        if (isLocalPlayer)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                CmdStartFire();
+            }
+            if (Input.GetMouseButtonUp(0))
+            {
+                CmdStopFire();
+            }
+        }
+        GetComponentInChildren<TextMesh>().text = playerName;
+    }
+
+
+    [Command]
+    void CmdStartFire()
+    {
+        anim.speed = 1;
+        isFiring = true;
+    }
+
+    [Command]
+    void CmdStopFire()
+    {
+        anim.speed = 0;
+        isFiring = false;
+    }
+
+    private void UpdateFire()
+    {
+        if (!isFiring || Time.timeSinceLevelLoad - lastShotTime < fireRate) return;
+
+        GameObject bullet;
+        bulletsPool.InstantiateFromPool(spawns[spawnNum].position, spawns[spawnNum].rotation, out bullet);
+
+        lastShotTime = Time.timeSinceLevelLoad;
+
+        if (spawnNum + 1 >= spawns.Length)
+        {
+            //Debug.Log("pizza");
+            spawnNum = 0;
+        }
+        else
+        {
+            spawnNum++;
+        }
     }
 
 }

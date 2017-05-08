@@ -5,17 +5,14 @@ public class PlayerMovement : MonoBehaviour
     public float speed = 6f;
 
     Vector3 movement;
-    //Animator anim;
     Rigidbody playerRigidbody;
     int floorMask;
     float camRayLength = 100f;
-    private TestManager projectileManager;
 
     void Awake()
     {
-        projectileManager = GetComponent<TestManager>();
+
         floorMask = LayerMask.GetMask("Floor");
-        //anim = GetComponent<Animator>();
         playerRigidbody = GetComponent<Rigidbody>();
     }
 
@@ -26,8 +23,6 @@ public class PlayerMovement : MonoBehaviour
 
         Move(h, v);
         Turning();
-        Attack();
-        //Animating(h, v);
     }
 
     void Move(float h, float v)
@@ -54,18 +49,4 @@ public class PlayerMovement : MonoBehaviour
             playerRigidbody.MoveRotation(newRotation);
         }
     }
-
-    void Attack()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            projectileManager.Shoot();
-        }
-    }
-
-    //void Animating(float h, float v)
-    //{
-    //    bool walking = h != 0f || v != 0f;
-    //    anim.SetBool("IsWalking", walking);
-    //}
 }
