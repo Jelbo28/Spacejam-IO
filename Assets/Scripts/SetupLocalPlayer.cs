@@ -6,6 +6,7 @@ using UnityEngine;
 public class SetupLocalPlayer : NetworkBehaviour
 {
     [SyncVar] public string playerName = "player";
+    private CameraFollow camera;
 	// Use this for initialization
     void OnGUI()
     {
@@ -29,7 +30,8 @@ public class SetupLocalPlayer : NetworkBehaviour
 	void Start () {
 	    if (isLocalPlayer)
 	    {
-
+            camera = FindObjectOfType<CameraFollow>();
+            camera.SetTarget(transform);
             GetComponent<PlayerMovement>().enabled = true;
 	        GetComponent<TestManager>().enabled = true;
 	    }

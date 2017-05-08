@@ -4,23 +4,32 @@ using UnityEngine;
 
 
 public class CameraFollow : MonoBehaviour
-{
-    [SerializeField]
-    int playerNum = 0;
+{ 
     public Transform target;
     public float smoothing = 5f;
-
+    private bool trackTarget  = false;
     Vector3 offset;
 
     void Start()
     {
-        target = GameObject.Find("Players").transform.GetChild(playerNum);
-        offset = transform.position - target.position;
+        offset = transform.position;
     }
 
     void FixedUpdate()
     {
-        Vector3 targetCamPos = target.position + offset;
-        transform.position = Vector3.Lerp(transform.position, targetCamPos, smoothing * Time.deltaTime);
+        if (trackTarget == true)
+        {
+            Vector3 targetCamPos = target.position + offset;
+            transform.position = Vector3.Lerp(transform.position, targetCamPos, smoothing * Time.deltaTime);
+        }
+    }
+
+    public void SetTarget(Transform player)
+    {
+        target = player;
+        transform.position = target.GetChild(0).transform.position;
+        transform.rotation = target.GetChild(0).transform.rotation;
+        offset = transform.position - target.position;
+        trackTarget = true;
     }
 }
