@@ -47,10 +47,14 @@ public class Shooting : NetworkBehaviour {
         {
             if (Input.GetMouseButtonDown(0))
             {
+                anim.speed = 1;
+                //anim.SetBool("isShooting", true);
                 CmdStartFire();
             }
             if (Input.GetMouseButtonUp(0))
             {
+                anim.speed = 0;
+                //anim.SetBool("isShooting", false);
                 CmdStopFire();
             }
         }
@@ -66,14 +70,12 @@ public class Shooting : NetworkBehaviour {
     [Command]
     void CmdStartFire()
     {
-        //anim.speed = 1;
         isFiring = true;
     }
 
     [Command]
     void CmdStopFire()
     {
-        //anim.speed = 0;
         isFiring = false;
     }
 
