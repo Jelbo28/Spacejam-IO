@@ -5,18 +5,32 @@ using UnityEngine;
 
 public class SetupLocalPlayer : NetworkBehaviour
 {
+    [SyncVar]
+    public string playerName = "player";
     private CameraFollow camera;
-    private Nickname playerName;
+    private Nickname playerNickname;
 
 	void Start () {
 	    if (isLocalPlayer)
 	    {
-            playerName = FindObjectOfType<Nickname>();
+            playerNickname = FindObjectOfType<Nickname>();
             camera = FindObjectOfType<CameraFollow>();
+	        camera.trackTarget = true;
             camera.SetTarget(transform);
             GetComponent<PlayerMovement>().enabled = true;
-            GetComponentInChildren<TextMesh>().text = playerName.nickname;
+            CmdChangeName(playerNickname.nickname);
 
         }
+    }
+
+    void Update()
+    {
+        GetComponentInChildren<TextMesh>().text = playerName;
+
+    }
+    [Command]
+    public void CmdChangeName(string newName)
+    {
+        playerName = newName;
     }
 }
