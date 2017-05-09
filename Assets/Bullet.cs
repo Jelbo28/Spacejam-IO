@@ -27,7 +27,7 @@ public class Bullet : NetworkBehaviour
     void Update()
     {
 
-        //if (!isServer) return;
+        if (!isServer) return;
 
         if (rbody)
             rbody.velocity = transform.up * force;
@@ -50,5 +50,14 @@ public class Bullet : NetworkBehaviour
 
         if (rbody)
             rbody.velocity = Vector3.zero;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player")
+            other.GetComponent<Health>().TakeDamage(1);
+        if (other.name != "The Container")
+            SendMessage("SetObjectInactive", SendMessageOptions.DontRequireReceiver);
+
     }
 }

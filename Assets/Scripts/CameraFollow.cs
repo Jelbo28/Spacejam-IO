@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-
-    public int boundary = 5;
     public float panSpeed = 5;
     public float panRange = 250;
     private Vector3 movement;
@@ -35,7 +33,7 @@ public class CameraFollow : MonoBehaviour
         }
         if (Input.GetMouseButton(1))
         {
-            if (Input.mousePosition.x > theScreenWidth && movement.x < panRange)
+            if (Input.mousePosition.x >= theScreenWidth && movement.x < panRange)
             {
                 movement.x += panSpeed * Time.deltaTime;
             }
@@ -45,7 +43,7 @@ public class CameraFollow : MonoBehaviour
                 movement.x -= panSpeed * Time.deltaTime;
             }
 
-            if (Input.mousePosition.y > theScreenHeight && movement.z < panRange)
+            if (Input.mousePosition.y >= theScreenHeight && movement.z < panRange)
             {
                 movement.z += panSpeed * Time.deltaTime;
             }

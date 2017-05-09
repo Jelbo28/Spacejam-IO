@@ -3,14 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Networking;
 
-/*
-*	Author: Juan Camilo Charria
-*	Website: http://www.justjuank.com
-*	Description: This class represents a pool of objects, it will register the prefab in the NetworkManager at first so you don't have to manually do it.
-*	Secondly it will allow you to instantiate objects of @template prefab and reuse them as necessary.
-*	Inspired by: Kevin Somers' EZ Object Pools
-*/
-
 public class NHNetworkedPool : NetworkBehaviour {
 
     public string poolname="";
