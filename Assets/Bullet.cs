@@ -2,30 +2,37 @@
 using System.Collections;
 using UnityEngine.Networking;
 
+[RequireComponent(typeof(Rigidbody))]
 public class Bullet : NetworkBehaviour
 {
-    [SerializeField]
-    float speed;
-    [SerializeField]
-    float lifeSpan = 1.0f;
-    private float startTime;
 
+    public Rigidbody rbody;
     [SerializeField]
-    GameObject explosion;
+    float force = 15f;
+    public float lifeSpan = 1.0f;
+    float startTime;
 
-    void Update()
+    // Use this for initialization
+    void Start()
     {
-        if (!isServer) return;
-        //transform.Translate(new Vector3(1, 1, 1) * speed * Time.smoothDeltaTime);
-        transform.position += transform.up * Time.deltaTime * speed;
-        //transform.Rotate(0, speed * Time.deltaTime * 5, 0);
-        CheckLifeSpan();
+        rbody = GetComponent<Rigidbody>();
     }
-
 
     void OnEnable()
     {
         startTime = Time.timeSinceLevelLoad;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+        //if (!isServer) return;
+
+        if (rbody)
+            rbody.velocity = transform.up * force;
+
+        CheckLifeSpan();
     }
 
     private void CheckLifeSpan()
@@ -37,9 +44,11 @@ public class Bullet : NetworkBehaviour
         }
     }
 
-    public void Explode()
+    void OnDisable()
     {
-        Instantiate(explosion, transform.position, Quaternion.identity);
-        gameObject.SetActive(false);
+        if (!isServer) return;
+
+        if (rbody)
+            rbody.velocity = Vector3.zero;
     }
 }

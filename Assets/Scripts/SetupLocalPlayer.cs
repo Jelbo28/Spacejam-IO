@@ -7,7 +7,7 @@ public class SetupLocalPlayer : NetworkBehaviour
 {
     [SyncVar] public string playerName = "player";
     private CameraFollow camera;
-	// Use this for initialization
+
     void OnGUI()
     {
         if (isLocalPlayer)
@@ -32,28 +32,12 @@ public class SetupLocalPlayer : NetworkBehaviour
 	    {
             camera = FindObjectOfType<CameraFollow>();
             camera.SetTarget(transform);
-            GetComponent<PlayerMovement>().enabled = true;
-<<<<<<< HEAD
-<<<<<<< HEAD
-            anim = GetComponent<Animator>();
-            anim.speed = 0;
+            GetComponent<PlayerMovement>().enabled = true;     
         }
-        if (NetworkServer.active)
-            bulletsPool = FindObjectOfType<NHNetworkedPool>();
-
-=======
-	        GetComponent<TestManager>().enabled = true;
-	    }
->>>>>>> parent of 8f5ec96... The bullets don't work :-1:
-=======
-	        GetComponent<TestManager>().enabled = true;
-	    }
->>>>>>> parent of 8f5ec96... The bullets don't work :-1:
     }
 
     void Update()
     {
-            GetComponentInChildren<TextMesh>().text = playerName;
+        GetComponentInChildren<TextMesh>().text = playerName;
     }
-
 }
