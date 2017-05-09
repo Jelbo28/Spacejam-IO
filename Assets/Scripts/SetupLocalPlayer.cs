@@ -54,11 +54,12 @@ public class SetupLocalPlayer : NetworkBehaviour
             camera = FindObjectOfType<CameraFollow>();
             camera.SetTarget(transform);
             GetComponent<PlayerMovement>().enabled = true;
-            anim = transform.GetChild(2).GetComponent<Animator>();
+            anim = GetComponent<Animator>();
             anim.speed = 0;
         }
         if (NetworkServer.active)
             bulletsPool = FindObjectOfType<NHNetworkedPool>();
+
     }
 
     void Update()
