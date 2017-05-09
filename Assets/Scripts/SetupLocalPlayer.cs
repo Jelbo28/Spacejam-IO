@@ -34,12 +34,17 @@ public class SetupLocalPlayer : NetworkBehaviour
             camera.SetTarget(transform);
             GetComponent<PlayerMovement>().enabled = true;
 <<<<<<< HEAD
+<<<<<<< HEAD
             anim = GetComponent<Animator>();
             anim.speed = 0;
         }
         if (NetworkServer.active)
             bulletsPool = FindObjectOfType<NHNetworkedPool>();
 
+=======
+	        GetComponent<TestManager>().enabled = true;
+	    }
+>>>>>>> parent of 8f5ec96... The bullets don't work :-1:
 =======
 	        GetComponent<TestManager>().enabled = true;
 	    }
