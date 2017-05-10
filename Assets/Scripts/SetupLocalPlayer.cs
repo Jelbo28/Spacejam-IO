@@ -8,6 +8,8 @@ public class SetupLocalPlayer : NetworkBehaviour
     [SyncVar]
     public string playerName = "player";
     //[SyncVar]
+    //public GameObject playerHealth;
+    //[SyncVar]
     //public int connectNum;
     private CameraFollow camera;
     private Nickname playerNickname;
@@ -45,4 +47,10 @@ public class SetupLocalPlayer : NetworkBehaviour
     {
         playerName = newName;
     }
+
+    //[Command]
+    //public void UpdateHealth(int newHealth)
+    //{
+
+    //}
 }

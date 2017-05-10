@@ -11,34 +11,38 @@ public class Health : NetworkBehaviour
 
     [SyncVar]
     public int currentHealth = maxHealth;
-    private RectTransform healthBar;
+    private GameObject healthBar;
 
 
     void Start()
     {
         gameOver = FindObjectOfType<Canvas>().transform.GetChild(1).gameObject;
-            healthBar = FindObjectOfType<Canvas>().transform.GetChild(0).GetChild(0).GetComponentInChildren<RectTransform>();
+        if (isLocalPlayer)
+            healthBar = FindObjectOfType<Canvas>().transform.GetChild(0).GetChild(0).gameObject;
     }
 
     public void TakeDamage(int amount)
     {
-        if (!isServer)
+        if (isServer)
         {
-            return;
+            currentHealth -= amount;
+            if (currentHealth <= 0)
+            {
+                currentHealth = 0;
+                if (isLocalPlayer)
+                    gameOver.SetActive(true);
+                //Debug.Log("Dead!");
+            }
         }
 
-        currentHealth -= amount;
-        if (currentHealth <= 0)
-        {
-            currentHealth = 0;
-            if (isLocalPlayer)
-                gameOver.SetActive(true);
-            //Debug.Log("Dead!");
-        }
+
+        OnChangeHealth(currentHealth);
     }
 
     void OnChangeHealth(int health)
     {
-        healthBar.sizeDelta = new Vector2(health, healthBar.sizeDelta.y);
+        if (isLocalPlayer)
+            healthBar.GetComponentInChildren<Text>().text = "Health: " + currentHealth;
+        //healthBar.sizeDelta = new Vector2(health, healthBar.sizeDelta.y);
     }
 }
