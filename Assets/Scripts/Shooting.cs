@@ -23,8 +23,8 @@ public class Shooting : NetworkBehaviour {
             bulletsPool = FindObjectOfType<NHNetworkedPool>();
         if (isLocalPlayer)
         {
-            anim = transform.GetChild(2).GetComponent<Animator>();
-            anim.speed = 0;
+            anim = transform.GetChild(3).GetComponent<Animator>();
+            //anim.speed = 0;
         }
 
     }
@@ -47,14 +47,14 @@ public class Shooting : NetworkBehaviour {
         {
             if (Input.GetMouseButtonDown(0))
             {
-                anim.speed = 1;
-                //anim.SetBool("isShooting", true);
+                //anim.speed = 1;
+                anim.SetBool("isShooting", true);
                 CmdStartFire();
             }
             if (Input.GetMouseButtonUp(0))
             {
-                anim.speed = 0;
-                //anim.SetBool("isShooting", false);
+                //anim.speed = 0;
+                anim.SetBool("isShooting", false);
                 CmdStopFire();
             }
         }

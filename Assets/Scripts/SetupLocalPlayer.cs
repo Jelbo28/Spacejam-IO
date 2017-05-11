@@ -7,6 +7,9 @@ public class SetupLocalPlayer : NetworkBehaviour
 {
     [SyncVar]
     public string playerName = "player";
+    [SerializeField]
+    [SyncVar]
+    public int shipType = 0;
     //[SyncVar]
     //public GameObject playerHealth;
     //[SyncVar]
@@ -20,6 +23,7 @@ public class SetupLocalPlayer : NetworkBehaviour
 	    {
             //connectNum = connections;
             playerNickname = FindObjectOfType<Nickname>();
+            shipType = playerNickname.shipType;
             camera = FindObjectOfType<CameraFollow>();
 	        camera.trackTarget = true;
             camera.SetTarget(transform);
@@ -34,6 +38,11 @@ public class SetupLocalPlayer : NetworkBehaviour
     {
         GetComponentInChildren<TextMesh>().text = playerName;
         //Debug.Log(Network.connections[connectNum]);
+    }
+
+    public void SetShip(int setShip)
+    {
+        shipType = setShip;
     }
 
     //public void Disconnect()
