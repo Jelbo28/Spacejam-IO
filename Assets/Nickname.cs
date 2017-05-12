@@ -28,7 +28,7 @@ public class Nickname : NetworkBehaviour {
     {
             //shipType = setShip;
         FindObjectOfType<NetworkCustom>().shipType = setShip;
-        Debug.Log(FindObjectOfType<NetworkCustom>().shipType);
+        //Debug.Log(FindObjectOfType<NetworkCustom>().shipType);
     }
 
     

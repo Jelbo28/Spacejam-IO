@@ -25,7 +25,7 @@ public class NetworkCustom : NetworkManager
     {
         NetworkMessage message = extraMessageReader.ReadMessage<NetworkMessage>();
         int selectedClass = message.chosenClass;
-        Debug.Log("server add with message " + selectedClass);
+        //Debug.Log("server add with message " + selectedClass);
         //GameObject player = Instantiate(Resources.Load("Player", typeof(GameObject))) as GameObject;
         //Debug.Log(FindObjectOfType<NetworkCustom>().shipType);
         GameObject ship = Instantiate(Resources.Load(shipLocations[selectedClass], typeof(GameObject))) as GameObject;
