@@ -20,8 +20,8 @@ public class PlayerMovement : MonoBehaviour
     {
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
-        if ((Mathf.Abs(h) + Mathf.Abs(v)) > 0.01f)
-            Move(h, v);
+
+        Move(h, v);
         Turning();
     }
 
