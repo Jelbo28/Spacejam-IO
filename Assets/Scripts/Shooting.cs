@@ -18,13 +18,11 @@ public class Shooting : NetworkBehaviour {
 
     void Start()
     {
-        anim = GetComponent<Animator>();
         if (NetworkServer.active)
             bulletsPool = FindObjectOfType<NHNetworkedPool>();
         if (isLocalPlayer)
         {
             anim = transform.GetChild(3).GetComponent<Animator>();
-            //anim.speed = 0;
         }
 
     }
