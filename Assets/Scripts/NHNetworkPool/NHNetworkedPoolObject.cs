@@ -2,12 +2,6 @@
 using System.Collections;
 using UnityEngine.Networking;
 
-/*
-*	Author: Juan Camilo Charria
-*	Website: http://www.justjuank.com
-*	Description: This class represents an object being used by a NHNetworkedPool
-*/
-
 public class NHNetworkedPoolObject : NetworkBehaviour {
 
     [SyncVar]

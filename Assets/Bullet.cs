@@ -2,11 +2,11 @@
 using System.Collections;
 using UnityEngine.Networking;
 
-[RequireComponent(typeof(Rigidbody))]
+//[RequireComponent(typeof(Rigidbody))]
 public class Bullet : NetworkBehaviour
 {
 
-    public Rigidbody rbody;
+    //public Rigidbody rbody;
     [SerializeField]
     float force = 15f;
     public float lifeSpan = 1.0f;
@@ -23,8 +23,9 @@ public class Bullet : NetworkBehaviour
 
         if (!isServer) return;
 
-        if (rbody)
-            rbody.velocity = transform.up * force;
+        //if (rbody)
+        //    rbody.velocity = transform.up * force;
+        transform.Translate(-transform.forward * force * Time.deltaTime);
 
         CheckLifeSpan();
     }
@@ -42,8 +43,8 @@ public class Bullet : NetworkBehaviour
     {
         if (!isServer) return;
 
-        if (rbody)
-            rbody.velocity = Vector3.zero;
+        //if (rbody)
+        //    rbody.velocity = Vector3.zero;
     }
 
     void OnTriggerEnter(Collider other)
@@ -51,8 +52,8 @@ public class Bullet : NetworkBehaviour
         if (!isServer) return;
         if (other.tag == "Player")
             other.GetComponent<Health>().TakeDamage(1);
-        if (other.name != "The Container")
-            SendMessage("SetObjectInactive", SendMessageOptions.DontRequireReceiver);
+        //if (other.name != "The Container")
+        //    SendMessage("SetObjectInactive", SendMessageOptions.DontRequireReceiver);
 
     }
 }
