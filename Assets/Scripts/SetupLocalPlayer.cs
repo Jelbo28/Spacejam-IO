@@ -31,6 +31,10 @@ public class SetupLocalPlayer : NetworkBehaviour
             CmdChangeName(playerNickname.nickname);
 
         }
+	    if (isServer)
+	    {
+	        tag = "Server";
+	    }
         //connections++;
     }
 

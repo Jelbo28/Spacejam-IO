@@ -13,12 +13,18 @@ public class Destroyer : MonoBehaviour {
         }
         else if (other.gameObject.tag == "Player")
         {
-            Destroy(other.gameObject, 1f);
-            SceneManager.LoadScene(0);
+            StartCoroutine(DestroyShip(1f, other.gameObject));
         }
         else
         {      
             Destroy(other.gameObject);
         }
+    }
+
+    IEnumerator DestroyShip(float waitTime, GameObject toDestroy)
+    {
+        Destroy(toDestroy, waitTime - .1f);
+        yield return new WaitForSeconds(waitTime);
+        SceneManager.LoadScene(0);
     }
 }
