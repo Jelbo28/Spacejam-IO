@@ -4,6 +4,7 @@ using UnityEngine.Networking;
 using UnityEngine;
 
 public class Shooting : NetworkBehaviour {
+    [SerializeField]
     NHNetworkedPool bulletsPool;
 
     public float fireRate = 0.1f;
